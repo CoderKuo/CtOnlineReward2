@@ -1,0 +1,22 @@
+
+debug: false
+
+database:
+  #存储类型 yaml,mysql,sqlite,h2,postgre
+  type: yaml
+  directory: './data'
+  setting:
+    host: localhost
+    port: 3306
+    user: root
+    password: root
+    database: minecraft
+  # 分表模式 按数据量选择 可优化读取速度 (空间换时间)
+  # 可选 month(月) week(周) day(天 不推荐 除非数据量极大且响应极慢可选择尝试)
+  table_mode: month
+  # 保存时间
+  save_time: 60
+
+script:
+  # 不指定引擎 default 或 nashorn 、rhino
+  engine: 'default'

@@ -1,0 +1,23 @@
+
+
+link: 'SignIn'
+
+param:
+  date: 'yyyy-MM-dd'
+
+
+title:
+  - '签到菜单 [%date%]'
+  - '签到菜单 [%date%] [未签到]'
+  - '签到菜单 [%date%] [已签到]'
+
+layout:
+  - 'AAAAAAAAA'
+  - 'AAAAAAAAA'
+  - 'AAAAAAAAA'
+  - 'A'
+
+items:
+  A:
+    link: 'SignIn:Date'
+    name: '%date%'

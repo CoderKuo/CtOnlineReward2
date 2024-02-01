@@ -1,0 +1,46 @@
+
+type: chest
+
+param:
+  row: 4
+
+actions:
+  pay:
+    type: 'js'
+    script: |-
+      sender.closeInventory()
+      
+      
+
+title:
+  - '基础菜单'
+
+layout:
+  - ''
+  - ' A  B'
+  - ''
+
+items:
+  A:
+    name: '&6测试'
+    lore:
+      - '&a测试'
+    material: 'Stone'
+    cmd: 10001
+    action:
+      click:
+        - type: js
+          call:
+           - |-
+                player.cmd('basic')
+  B:
+    name: '&6给玩家转账'
+    lore:
+      - '&a点击转账给玩家'
+    material: 'CLOCK'
+    cmd: 10002
+    action:
+      click:
+        - type: js
+          call: |-
+            call('pay',player)

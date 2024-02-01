@@ -1,0 +1,11 @@
+
+
+title: '合成展示'
+
+type: craft
+
+layout:
+  - 'xxx'
+  - 'xxx'
+  - 'xxx'
+  - 'b'
