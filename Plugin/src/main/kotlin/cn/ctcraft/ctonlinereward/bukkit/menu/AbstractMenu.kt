@@ -9,7 +9,7 @@ abstract class AbstractMenu:Menu {
 
     override fun toBukkitInventory():Inventory{
         if (inventory != null) return inventory!!
-        return Bukkit.createInventory(MenuHolder(this),type.originType,title).also {
+        return Bukkit.createInventory(MenuHolder(this),type.originType,title.getOrNull(0) ?: "Chest").also {
             build(it)
             inventory = it
         }

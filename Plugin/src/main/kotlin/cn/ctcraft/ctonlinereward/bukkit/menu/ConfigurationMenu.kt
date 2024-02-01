@@ -22,7 +22,7 @@ class ConfigurationMenu(val id:String,config:Configuration): AbstractMenu() {
 
     override val params: Dict = Dict(config.getMap("param"))
 
-    override val title: String = config.getStringColored("title") ?: "Chest"
+    override val title: List<String> = config.getStringListColored("title")
 
     override val layout: CopyOnWriteArrayList<List<Char>> = config.getStringList("layout").map {
         it.toCharArray().toList()

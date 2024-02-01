@@ -13,7 +13,7 @@ interface Menu {
 
     val params:Dict
 
-    val title:String
+    val title:List<String>
 
     val layout:CopyOnWriteArrayList<List<Char>>
 
