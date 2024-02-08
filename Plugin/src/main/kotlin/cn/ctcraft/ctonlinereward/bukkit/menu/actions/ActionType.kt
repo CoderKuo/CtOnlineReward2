@@ -1,6 +1,6 @@
 package cn.ctcraft.ctonlinereward.bukkit.menu.actions
 
-enum class ActionType(val alias:Array<String>,val clazz: Class<out Action>) {
+enum class ActionType(val alias: Array<String>, val clazz: Class<out Action<*>>) {
     js(arrayOf("javascript"),JavascriptAction::class.java),
     kether(arrayOf("ke"),KetherAction::class.java);
 

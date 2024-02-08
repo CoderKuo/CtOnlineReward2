@@ -22,9 +22,10 @@ class NashornEngineJDK:AbstractScriptEngine() {
         vararg args: Any
     ): Any? {
         val newObject: ScriptObjectMirror = (compiledScript as Invocable).invokeFunction("newObject") as ScriptObjectMirror
-        map?.forEach { (key,value)->
-            newObject[key] = value
+        map?.let {
+            (newObject.proto as ScriptObjectMirror).putAll(it)
         }
+
         return newObject.callMember(function,*args)
     }
 

@@ -1,15 +1,13 @@
 package cn.ctcraft.ctonlinereward.common
 
 import cn.ctcraft.ctonlinereward.bukkit.menu.Menu
-import cn.ctcraft.ctonlinereward.common.logger.debug
-import cn.ctcraft.ctonlinereward.common.service.SaveService
 import cn.hutool.core.date.DateUnit
 import cn.hutool.core.date.DateUtil
-import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.function.adaptPlayer
 import taboolib.common5.cint
+import taboolib.expansion.fakeOp
 import taboolib.platform.type.BukkitPlayer
 import java.util.*
 
@@ -18,6 +16,8 @@ class CtOnlineRewardProxyPlayer(val player: ProxyPlayer):ProxyPlayer by (player)
     constructor(player:Player):this(adaptPlayer(player))
 
     constructor(player: BukkitPlayer):this(adaptPlayer(player))
+
+    val bukkitPlayer = (player as? BukkitPlayer)?.player
 
     val startTime = Date()
 
@@ -28,6 +28,18 @@ class CtOnlineRewardProxyPlayer(val player: ProxyPlayer):ProxyPlayer by (player)
         return DateUtil.between(startTime,Date(),DateUnit.MINUTE).cint
     }
 
+    fun sudoCmd(cmd: List<String>) {
+        (player as BukkitPlayer).player.fakeOp().also { player ->
+            cmd.forEach {
+                player.performCommand(it)
+            }
+        }
+    }
+
+    fun sudoCmd(cmd: String) {
+        sudoCmd(listOf(cmd))
+    }
+
     fun cmd(cmd:List<String>){
         cmd.forEach {
             cmd(it)
@@ -36,11 +48,14 @@ class CtOnlineRewardProxyPlayer(val player: ProxyPlayer):ProxyPlayer by (player)
 
     fun cmd(cmd:String){
        performCommand(cmd)
+    }
 
+    fun closeMenu() {
+        bukkitPlayer?.closeInventory()
     }
 
     fun openMenu(menu: Menu){
-        (player as BukkitPlayer).player.openInventory(menu.toBukkitInventory())
+        bukkitPlayer?.openInventory(menu.toBukkitInventory())
     }
 
 }

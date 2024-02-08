@@ -5,11 +5,20 @@ import org.bukkit.inventory.InventoryHolder
 
 class MenuHolder(val menu: Menu):InventoryHolder {
 
+    companion object {
 
-    private val inventory:Inventory = menu.toBukkitInventory()
+        fun formInventory(inventory: Inventory): MenuHolder? {
+            val holder = inventory.holder
+            if (holder is MenuHolder) {
+                return holder
+            }
+            return null
+        }
+
+    }
 
     override fun getInventory(): Inventory {
-        return inventory
+        return menu.toBukkitInventory()
     }
 
 }

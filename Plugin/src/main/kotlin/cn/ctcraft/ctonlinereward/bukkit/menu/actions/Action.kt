@@ -2,10 +2,10 @@ package cn.ctcraft.ctonlinereward.bukkit.menu.actions
 
 import cn.ctcraft.ctonlinereward.common.CtOnlineRewardProxyPlayer
 
-interface Action {
+interface Action<T> {
 
-    val values:List<String>
+    val values: List<T>
 
-    fun call(player:CtOnlineRewardProxyPlayer)
+    fun call(player: CtOnlineRewardProxyPlayer, map: Map<String, Any>)
 
 }

@@ -1,13 +1,14 @@
-package cn.ctcraft.ctonlinereward.common.script
+package cn.ctcraft.ctonlinereward.common.manager
 
 import cn.ctcraft.ctonlinereward.CtOnlineReward
 import cn.ctcraft.ctonlinereward.common.logger.Logging
-import cn.ctcraft.ctonlinereward.common.script.EngineType.*
-import cn.ctcraft.ctonlinereward.common.script.engine.AbstractScriptEngine
+import cn.ctcraft.ctonlinereward.common.script.CompiledScript
+import cn.ctcraft.ctonlinereward.common.script.EngineType
+import cn.ctcraft.ctonlinereward.common.script.EngineType.default
+import cn.ctcraft.ctonlinereward.common.script.EngineType.nashorn
 import cn.ctcraft.ctonlinereward.common.script.engine.NashornEngineJDK
 import cn.ctcraft.ctonlinereward.common.script.engine.NashornEngineOpenJDK
 import cn.hutool.core.io.FileUtil
-import com.github.alanger.commonjs.ModuleException
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.function.getDataFolder
@@ -19,7 +20,7 @@ object ScriptManager {
 
     val scripts = ConcurrentHashMap<String,File>()
 
-    val type  = CtOnlineReward.config.getEnum("script.engine",EngineType::class.java) ?: default
+    val type = CtOnlineReward.config.getEnum("script.engine", EngineType::class.java) ?: default
     val engine = when(type){
         nashorn->{
             when{
@@ -61,10 +62,10 @@ object ScriptManager {
         }
     }
 
-    @Awake(LifeCycle.ACTIVE)
+    @Awake(LifeCycle.ENABLE)
     fun loadScripts(){
         scripts.clear()
-        File(getDataFolder(),"script").listFiles().forEach {parent->
+        File(getDataFolder(), "script").listFiles().forEach { parent ->
             loadScript(parent)
         }
     }
@@ -81,7 +82,7 @@ object ScriptManager {
             file
         }
         scripts[FileUtil.mainName(file)] = newFile
-        Logging.info("脚本文件 ${FileUtil.mainName(file)} 已载入")
+        Logging.info("&a✓ &b${FileUtil.mainName(file)} &a脚本已加载.")
     }
 
 
@@ -104,7 +105,7 @@ object ScriptManager {
 
     fun enableRequire(engine: ScriptEngine,file: File){
         kotlin.runCatching {
-            this.engine.withRequire(engine, file)
+            ScriptManager.engine.withRequire(engine, file)
         }.onFailure {
             println(it)
         }

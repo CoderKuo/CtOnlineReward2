@@ -5,6 +5,7 @@ import cn.ctcraft.ctonlinereward.common.logger.debug
 import cn.ctcraft.ctonlinereward.onlinetime.SelectOnlineTime
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
+import taboolib.common.platform.function.getProxyPlayer
 import taboolib.platform.util.onlinePlayers
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
@@ -33,8 +34,12 @@ object PlayerManager {
         debug("${player.name} 玩家数据已记录, 登入时间为:${getStartTime(uuid)}")
     }
 
-    fun getPlayerData(uuid: UUID): CtOnlineRewardProxyPlayer? {
+    fun getPlayer(uuid: UUID): CtOnlineRewardProxyPlayer? {
         return cache[uuid]
+    }
+
+    fun getPlayer(name: String): CtOnlineRewardProxyPlayer? {
+        return getProxyPlayer(name)?.let { cache[it.uniqueId] }
     }
 
     fun getStartTime(uuid: UUID) = cache[uuid]?.startTime
@@ -56,6 +61,14 @@ object PlayerManager {
         }else{
             0
         }
+    }
+
+    operator fun get(name: String): CtOnlineRewardProxyPlayer? {
+        return getPlayer(name)
+    }
+
+    operator fun get(uuid: UUID): CtOnlineRewardProxyPlayer? {
+        return getPlayer(uuid)
     }
 
 }

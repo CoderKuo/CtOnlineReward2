@@ -1,10 +1,8 @@
 package cn.ctcraft.ctonlinereward.common.script.engine
 
 import cn.ctcraft.ctonlinereward.common.script.CompiledScript
-import com.github.alanger.commonjs.AbstractModule
 import com.github.alanger.commonjs.FilesystemFolder
 import com.github.alanger.commonjs.ModuleCache
-import com.github.alanger.commonjs.Require
 import com.github.alanger.commonjs.nashorn.NashornModule
 import taboolib.common.env.RuntimeDependencies
 import taboolib.common.env.RuntimeDependency
@@ -33,7 +31,8 @@ class NashornEngineOpenJDK:AbstractScriptEngine() {
     ): Any? {
         val newObject:  org.openjdk.nashorn.api.scripting.ScriptObjectMirror =
             (compiledScript.scriptEngine as Invocable).invokeFunction("newObject") as  org.openjdk.nashorn.api.scripting.ScriptObjectMirror
-        map?.forEach { (key, value) -> newObject[key] = value }
+
+        map?.let { (newObject.proto as org.openjdk.nashorn.api.scripting.ScriptObjectMirror).putAll(it) }
         return newObject.callMember(function, *args)
     }
 

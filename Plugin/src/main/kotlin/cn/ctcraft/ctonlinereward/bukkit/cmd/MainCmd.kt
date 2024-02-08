@@ -1,7 +1,7 @@
 package cn.ctcraft.ctonlinereward.bukkit.cmd
 
 import cn.ctcraft.ctonlinereward.bukkit.listener.PlayerChatWrapper
-import cn.ctcraft.ctonlinereward.common.script.ScriptManager
+import cn.ctcraft.ctonlinereward.common.manager.ScriptManager
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.command.CommandBody
@@ -9,7 +9,6 @@ import taboolib.common.platform.command.CommandHeader
 import taboolib.common.platform.command.subCommand
 import taboolib.common.platform.command.suggest
 import taboolib.common.platform.function.getDataFolder
-import taboolib.common.platform.function.severe
 import taboolib.platform.type.BukkitPlayer
 import java.io.File
 
@@ -58,5 +57,8 @@ object MainCmd {
            }
         }
     }
+
+    @CommandBody
+    val menu = MenuCmd
 
 }

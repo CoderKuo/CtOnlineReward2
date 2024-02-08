@@ -7,8 +7,9 @@ param:
 actions:
   pay:
     type: 'js'
-    script: |-
-      sender.closeInventory()
+    call:
+      - |-
+        player.closeInventory()
       
       
 

@@ -1,0 +1,31 @@
+type: chest
+
+link: 'online'
+
+title:
+  - '在线奖励菜单'
+
+layout:
+  - ''
+  - ' a b c '
+  - ''
+
+items:
+  a:
+    material: 'glass_bottle'
+    link: 'online:item'
+    linkParam:
+      reward: '10min'
+      before:
+        name: '&a10分钟在线奖励 &7[未激活]'
+        lore:
+          - '当前在线时间: %CtOnlineReward_today%'
+      activation:
+        name: '&a&l10分钟在线奖励 [可领取]'
+        lore:
+          - '点击左键领取'
+        material: 'experience_bottle'
+      after:
+        name: '&a10分钟在线奖励 &c[已领取]'
+        lore:
+          - '你已经在 %CtOnlineReward_receiveDate_10min% 时领取了10分钟在线奖励'

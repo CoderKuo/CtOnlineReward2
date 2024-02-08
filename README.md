@@ -1,3 +1,7 @@
+# CtOnlineReward2
+
+第二代 在线奖励插件
+
 # Building
 
 * [Gradle](https://gradle.org/) - Dependency Management

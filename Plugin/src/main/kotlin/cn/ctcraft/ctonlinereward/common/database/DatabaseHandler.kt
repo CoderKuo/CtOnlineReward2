@@ -1,14 +1,10 @@
 package cn.ctcraft.ctonlinereward.common.database
 
-import cn.ctcraft.ctonlinereward.CtOnlineReward
 import cn.ctcraft.ctonlinereward.common.document.Document
 import cn.ctcraft.ctonlinereward.common.document.DocumentFile
 import cn.ctcraft.ctonlinereward.common.document.buildMarkdown
 import cn.ctcraft.ctonlinereward.common.logger.Logging
-import net.steppschuh.markdowngenerator.text.emphasis.BoldText
 import taboolib.common.LifeCycle
-import taboolib.common.env.RuntimeDependencies
-import taboolib.common.env.RuntimeDependency
 import taboolib.common.platform.Awake
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.ConfigFile
@@ -20,9 +16,11 @@ import java.util.concurrent.ConcurrentHashMap
 object DatabaseHandler:Document{
 
     @Config(value = "datasource.yml")
-    lateinit var dataSourceSetting:Configuration
+    lateinit var dataSourceSetting: ConfigFile
 
-    private var type = getDatabaseType()
+    @Config(value = "config.yml")
+    lateinit var config: ConfigFile
+
 
     /**
      * databaseSourceMap
@@ -32,35 +30,36 @@ object DatabaseHandler:Document{
 
     private lateinit var database:AbstractDatabase
 
-    val setting = type.getSetting().let {
-        val section = CtOnlineReward.config.get("database") as ConfigSection
-        section.getEnum("type",DatabaseType::class.java)
+    private val type by lazy {
+        return@lazy config.getEnum("database.type", DatabaseType::class.java) ?: DatabaseType.yaml
     }
 
-    val tableMode = getTableModeForConfig()
+    val setting by lazy {
+        type.getSetting().let {
+            val section = config.get("database") as ConfigSection
+            section.getEnum("type", DatabaseType::class.java)
+        }
+    }
 
-    val saveTime = getSaveTimeConfig()
+    val tableMode by lazy { getTableModeForConfig() }
+
+    val saveTime by lazy { getSaveTimeConfig() }
 
     private fun getSaveTimeConfig():Int{
-        return CtOnlineReward.config.getInt("database.save_time",60).also {
+        return config.getInt("database.save_time", 60).also {
             Logging.info("&6数据保存间隔: &a$it &6s&f.")
         }
     }
 
 
-    private fun getDatabaseType(): DatabaseType {
-       val type = CtOnlineReward.config.getString("database.type") ?: "yaml"
-       return DatabaseType.valueOf(type)
-    }
-
     /**
      * 注册内置数据库
      */
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.ACTIVE)
     fun registerInnerDatabase(){
         Logging.info("当前数据存储模式为: &6${type.name}")
         val config = Configuration.empty().apply {
-            val section = CtOnlineReward.config.get("database") as ConfigSection
+            val section = config.get("database") as ConfigSection
             setting!!.getSetting().forEach {
                 this.set(it.key,section.get(it.key))
             }
@@ -105,12 +104,8 @@ object DatabaseHandler:Document{
         }
     }
 
-    fun disableOriginDatabase(){
-        type = DatabaseType.disable
-    }
-
     fun getTableModeForConfig(): TableMode {
-        val mode = CtOnlineReward.config.getEnum("database.table_mode", TableMode::class.java)
+        val mode = config.getEnum("database.table_mode", TableMode::class.java)
         return mode ?: run {
             Logging.info("&f分表模式识别失败,自动选择 &6按月分表 &f.")
             return@run TableMode.month

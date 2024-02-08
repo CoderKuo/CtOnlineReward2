@@ -1,0 +1,38 @@
+#检测条件
+conditions:
+  - type: js
+    condition: 'today >= 10'
+
+#检测权限
+#permission: 'CtOnlineReward.reward.10min'
+
+#是否开启提醒
+remind: true
+
+reward:
+  # itemReward: '' # 物品奖励 可使用/cor reward set 10min配置
+  cmd:
+    default:
+      - ''
+    op:
+      - ''
+    console:
+      - ''
+  economy:
+    money: 10
+    points: 0
+
+
+
+#挂钩
+hook:
+  onActive:
+    - type: js
+      call:
+        - |-
+          player.sendMessage('10分钟在线奖励已激活')
+  onReceive:
+    - type: js
+      call:
+        - |-
+          player.sendMessage('这里是领取后触发的脚本')

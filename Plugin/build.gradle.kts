@@ -16,6 +16,7 @@ taboolib {
         install(UI)
         install(CHAT, CONFIGURATION, LANG, KETHER)
         install(BUKKIT_ALL)
+        install(EXPANSION_PLAYER_FAKE_OP)
         install("platform-bukkit-impl")
         install(EXPANSION_COMMAND_HELPER)
     }

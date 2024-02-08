@@ -2,11 +2,10 @@ package cn.ctcraft.ctonlinereward.bukkit.compat
 
 import cn.ctcraft.ctonlinereward.common.manager.PlayerManager
 import cn.ctcraft.ctonlinereward.onlinetime.CommonOnlineTime
-import cn.ctcraft.ctonlinereward.onlinetime.SelectOnlineTime
 import org.bukkit.OfflinePlayer
 import taboolib.platform.compat.PlaceholderExpansion
 
-object PlaceholderCompat:PlaceholderExpansion {
+object PlaceholderCompat : PlaceholderExpansion {
     override val identifier: String
         get() = "CtOnlineReward"
 
@@ -21,4 +20,5 @@ object PlaceholderCompat:PlaceholderExpansion {
 
         return "error"
     }
+
 }

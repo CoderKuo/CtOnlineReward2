@@ -1,6 +1,7 @@
 package cn.ctcraft.ctonlinereward.common.script
 
 import cn.ctcraft.ctonlinereward.common.logger.Logging
+import cn.ctcraft.ctonlinereward.common.manager.ScriptManager
 import cn.hutool.core.util.StrUtil
 import java.io.File
 import java.io.Reader

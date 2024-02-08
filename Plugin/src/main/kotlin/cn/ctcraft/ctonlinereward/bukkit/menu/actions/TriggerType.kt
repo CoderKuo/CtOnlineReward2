@@ -1,13 +1,16 @@
 package cn.ctcraft.ctonlinereward.bukkit.menu.actions
 
-enum class TriggerType {
+import org.bukkit.event.inventory.ClickType
 
-    click,
-    double_click,
-    right_click,
-    right_double_click,
-    shift_click,
-    drop;
+enum class TriggerType(val origin: ClickType) {
+
+    click(ClickType.LEFT),
+    double_click(ClickType.DOUBLE_CLICK),
+    right_click(ClickType.RIGHT),
+    shift_click(ClickType.SHIFT_LEFT),
+    shift_right_click(ClickType.SHIFT_RIGHT),
+    drop(ClickType.DROP),
+    all(ClickType.UNKNOWN);
 
     companion object{
         @JvmStatic
