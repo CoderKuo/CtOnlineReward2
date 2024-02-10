@@ -12,30 +12,15 @@ class Trigger(val type: TriggerType, val actions: List<Action<*>>) {
 
     }
 
-    constructor(type: String,actions:List<Map<*,*>>) : this(TriggerType.match(type),actions.map {
-        val type = it.get("type")
-        var call = it.get("call") ?: it.get("script") ?: it.get("value") ?: it.get("val")
-        if (call == null) {
-            call = it.entries.toList().let {
-                it.get(it.indexOfFirst { it.key != "type" })
-            }
-        }
-        if (call is List<*>) {
-            ActionType.match(type as? String).clazz.getConstructor(List::class.java).newInstance(
-                call
-            )
-
-        } else {
-            ActionType.match(type as? String).clazz.getConstructor(String::class.java)
-                .newInstance(call.toString())
-        }
-    })
+    constructor(type: String, actions: List<Map<*, *>>) : this(TriggerType.match(type), ActionUtil.buildAction(actions))
 
 
-    fun call(player: CtOnlineRewardProxyPlayer, map: Map<String, Any>) {
+    fun call(player: CtOnlineRewardProxyPlayer, map: Map<String, Any>?): Any? {
+        var result: Any? = null
         actions.forEach {
-            it.call(player, map)
+            result = it.call(player, map)
         }
+        return result
     }
 
 }

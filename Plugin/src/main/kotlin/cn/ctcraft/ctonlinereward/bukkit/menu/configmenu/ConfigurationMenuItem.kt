@@ -1,5 +1,6 @@
-package cn.ctcraft.ctonlinereward.bukkit.menu
+package cn.ctcraft.ctonlinereward.bukkit.menu.configmenu
 
+import cn.ctcraft.ctonlinereward.bukkit.menu.MenuItem
 import cn.ctcraft.ctonlinereward.bukkit.menu.actions.Trigger
 import cn.ctcraft.ctonlinereward.common.utils.ConfigUtils
 import org.bukkit.inventory.ItemStack

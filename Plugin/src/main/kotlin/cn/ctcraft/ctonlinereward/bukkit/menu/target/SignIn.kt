@@ -6,7 +6,6 @@ class SignIn:LinkTarget {
 
     override fun link(menu: Menu) {
 
-        TODO("Not yet implemented")
     }
 
 }

@@ -8,6 +8,7 @@ import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.function.adaptPlayer
 import taboolib.common5.cint
 import taboolib.expansion.fakeOp
+import taboolib.module.chat.colored
 import taboolib.platform.type.BukkitPlayer
 import java.util.*
 
@@ -48,6 +49,10 @@ class CtOnlineRewardProxyPlayer(val player: ProxyPlayer):ProxyPlayer by (player)
 
     fun cmd(cmd:String){
        performCommand(cmd)
+    }
+
+    fun msg(vararg msg: String) {
+        sendMessage(msg.joinToString(" ").colored())
     }
 
     fun closeMenu() {

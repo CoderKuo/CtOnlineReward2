@@ -16,10 +16,10 @@ object CommonLinkItem : AbstractLinkItem() {
                 it.action.add(Trigger.create(TriggerType.click, listOf(
                     FunctionAction().addFunc { (player, param) ->
                         (parseCmd.get("default") as List<String>).also {
-                            player.cmd(it)
+                            player?.cmd(it)
                         }
                         (parseCmd.get("op") as List<String>).also {
-                            player.sudoCmd(it)
+                            player?.sudoCmd(it)
                         }
                         (parseCmd.get("console") as List<String>).forEach {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), it)

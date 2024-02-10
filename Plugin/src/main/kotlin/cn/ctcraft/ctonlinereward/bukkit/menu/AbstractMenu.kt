@@ -59,18 +59,18 @@ abstract class AbstractMenu:Menu {
         }
     }
 
-    fun onClick(priority: Int = 10, event: Function<ClickEvent, Unit>) {
+    override fun onClick(priority: Int, event: Function<ClickEvent, Unit>) {
         eventHandlers.getOrPut(MenuEvent.Click) { CopyOnWriteArrayList() }
             .add(EventHandler(priority, event) as EventHandler<Event>)
     }
 
-    fun onClose(priority: Int = 10, event: Function<CloseEvent, Unit>) {
-        eventHandlers.getOrPut(MenuEvent.Click) { CopyOnWriteArrayList() }
+    override fun onClose(priority: Int, event: Function<CloseEvent, Unit>) {
+        eventHandlers.getOrPut(MenuEvent.Close) { CopyOnWriteArrayList() }
             .add(EventHandler(priority, event) as EventHandler<Event>)
     }
 
-    fun onOpen(priority: Int = 10, event: Function<OpenEvent, Unit>) {
-        eventHandlers.getOrPut(MenuEvent.Click) { CopyOnWriteArrayList() }
+    override fun onOpen(priority: Int, event: Function<OpenEvent, Unit>) {
+        eventHandlers.getOrPut(MenuEvent.Open) { CopyOnWriteArrayList() }
             .add(EventHandler(priority, event) as EventHandler<Event>)
     }
 

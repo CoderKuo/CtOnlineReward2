@@ -10,10 +10,10 @@ class KetherAction(override val values: List<String>) : Action<String> {
     constructor(value:String):this(arrayListOf(value))
 
 
-    override fun call(player: CtOnlineRewardProxyPlayer, map: Map<String, Any>) {
-        KetherShell.eval(values, options = ScriptOptions.new {
-            sender(player)
-            vars(map)
+    override fun call(player: CtOnlineRewardProxyPlayer?, map: Map<String, Any>?): Any? {
+        return KetherShell.eval(values, options = ScriptOptions.new {
+            player?.let { sender(it) }
+            map?.let { vars(it) }
         })
     }
 }

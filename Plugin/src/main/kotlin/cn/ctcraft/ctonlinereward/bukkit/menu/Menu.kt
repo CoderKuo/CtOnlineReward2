@@ -1,12 +1,16 @@
 package cn.ctcraft.ctonlinereward.bukkit.menu
 
+import cn.ctcraft.ctonlinereward.bukkit.menu.event.ClickEvent
+import cn.ctcraft.ctonlinereward.bukkit.menu.event.CloseEvent
 import cn.ctcraft.ctonlinereward.bukkit.menu.event.Event
+import cn.ctcraft.ctonlinereward.bukkit.menu.event.OpenEvent
 import cn.ctcraft.ctonlinereward.bukkit.menu.target.LinkTarget
 import cn.hutool.core.lang.Dict
 import org.bukkit.entity.HumanEntity
 import org.bukkit.inventory.Inventory
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
+import java.util.function.Function
 
 interface Menu {
 
@@ -44,6 +48,8 @@ interface Menu {
 
     fun callEvent(event: Event)
 
-
+    fun onClick(priority: Int = 10, event: Function<ClickEvent, Unit>)
+    fun onClose(priority: Int = 10, event: Function<CloseEvent, Unit>)
+    fun onOpen(priority: Int = 10, event: Function<OpenEvent, Unit>)
 
 }

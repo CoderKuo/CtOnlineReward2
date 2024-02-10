@@ -16,7 +16,3 @@ database:
   table_mode: month
   # 保存时间
   save_time: 60
-
-script:
-  # 不指定引擎 default 或 nashorn 、rhino
-  engine: 'default'

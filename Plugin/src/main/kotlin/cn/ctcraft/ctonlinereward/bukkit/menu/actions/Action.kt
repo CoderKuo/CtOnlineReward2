@@ -6,6 +6,6 @@ interface Action<T> {
 
     val values: List<T>
 
-    fun call(player: CtOnlineRewardProxyPlayer, map: Map<String, Any>)
+    fun call(player: CtOnlineRewardProxyPlayer?, map: Map<String, Any>?): Any?
 
 }

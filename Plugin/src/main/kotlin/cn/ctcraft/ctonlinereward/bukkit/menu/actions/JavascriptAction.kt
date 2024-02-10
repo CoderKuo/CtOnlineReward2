@@ -13,9 +13,8 @@ class JavascriptAction(override val values: List<String>) : Action<String> {
         }    
     """.trimIndent())
 
-    override fun call(player: CtOnlineRewardProxyPlayer, map: Map<String, Any>) {
-
-        compiledScript.invoke("__main__", map)
+    override fun call(player: CtOnlineRewardProxyPlayer?, map: Map<String, Any>?): Any? {
+        return compiledScript.invoke("__main__", map)
     }
 
 }
